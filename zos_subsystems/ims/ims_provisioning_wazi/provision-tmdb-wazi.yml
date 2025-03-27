@@ -5,7 +5,7 @@
   # Variable file for Wazi environment 
   vars_files:
     - vars_wazi/ims-dbdc.yml
-  environment: '{{ environment_vars }}'
+  environment: '{{ system_environment }}'
 
   collections:
     - ibm.ibm_zos_core
