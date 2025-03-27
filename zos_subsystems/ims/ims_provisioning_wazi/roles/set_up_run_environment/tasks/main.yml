@@ -13,33 +13,33 @@
       //  MSGCLASS={{ MSG_CLASS }},
       //  MSGLEVEL=(1,1),
       //  CLASS={{ JOB_CLASS }}
-    IST_VTAM_IMSAPPLID: '{{ DFS_IMS_SSID }}'
-    ADDTL_SAMP_PROC_LIB: '{{ DFS_AUTH_LIB_HLQ1 }}.{{ DFS_AUTH_LIB_HLQ2 }}.PROCLIB'
-    TCPIP_PROFILE_TMP: '{{ DFS_AUTH_LIB_HLQ1 }}.TEMP'
-    ROUTE: '{{ DFS_IMS_SSID }}'
-    ZOS_RELEASE: '{{proclib_ds.stdout[5:9]}}'
-    DFS_DS_VOLUME1: '{{proclib_ds.stdout[8]}}{{proclib_ds.stdout[7]}}USR1'
-    DFS_DS_VOLUME2: '{{proclib_ds.stdout[8]}}{{proclib_ds.stdout[7]}}USR1'
+    IST_VTAM_IMSAPPLID: "{{ DFS_IMS_SSID }}"
+    ADDTL_SAMP_PROC_LIB: "{{ DFS_AUTH_LIB_HLQ1 }}.{{ DFS_AUTH_LIB_HLQ2 }}.PROCLIB"
+    TCPIP_PROFILE_TMP: "{{ DFS_AUTH_LIB_HLQ1 }}.TEMP"
+    ROUTE: "{{ DFS_IMS_SSID }}"
+    ZOS_RELEASE: "{{proclib_ds.stdout[5:9]}}"
+    DFS_DS_VOLUME1: "{{proclib_ds.stdout[8]}}{{proclib_ds.stdout[6]}}USR1"
+    DFS_DS_VOLUME2: "{{proclib_ds.stdout[8]}}{{proclib_ds.stdout[6]}}USR1"
 
 - debug:
-    var: 
-      - ZOS_RELEASE
-      - DFS_DS_VOLUME1
+    var: ZOS_RELEASE
+
+- debug:
+    var: DFS_DS_VOLUME1
 
 - set_fact:
-    environment_vars: '{{ environment_vars | combine(new_item, recursive=true) }}'
+    environment_vars: "{{ environment_vars | combine(new_item, recursive=true) }}"
   vars:
-    new_item: { STEPLIB: '{{ STEPLIB }}' }
-  with_dict: '{{ environment_vars }}'
+    new_item: { STEPLIB: "{{ STEPLIB }}" }
+  with_dict: "{{ environment_vars }}"
 
 - block:
+    - tempfile:
+        state: directory
+      register: tmdb_tmp_dir
 
-  - tempfile:
-      state: directory
-    register: tmdb_tmp_dir
+    - set_fact:
+        DFS_AUTH_LIB_SYSHLQ: "{% if DFS_AUTH_LIB_SYSHLQ2 %}{{DFS_AUTH_LIB_SYSHLQ1}}.{{DFS_AUTH_LIB_SYSHLQ2}}{% else %}{{DFS_AUTH_LIB_SYSHLQ1}}{% endif %}"
 
-  - set_fact:
-      DFS_AUTH_LIB_SYSHLQ: "{% if DFS_AUTH_LIB_SYSHLQ2 %}{{DFS_AUTH_LIB_SYSHLQ1}}.{{DFS_AUTH_LIB_SYSHLQ2}}{% else %}{{DFS_AUTH_LIB_SYSHLQ1}}{% endif %}"
-
-  - debug:
-      msg: IMS source location is '{{ DFS_AUTH_LIB_SYSHLQ }}'
+    - debug:
+        msg: IMS source location is '{{ DFS_AUTH_LIB_SYSHLQ }}'
