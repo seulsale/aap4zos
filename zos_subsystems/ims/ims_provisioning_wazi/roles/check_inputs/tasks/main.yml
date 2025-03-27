@@ -66,30 +66,30 @@
     - DFS_IMSPlex | length > 5
     - fail_task
 
-- name: Fail if ODBM_PORTID is valid
+- name: Fail if ODBM_PORTID is invalid
   fail:
     msg: "ODBM port should be between 1 and 65535"
   when:
-    - ODBM_PORTID <= 0 or ODBM_PORTID > 65535
+    - ODBM_PORTID|int <= 0 or ODBM_PORTID|int > 65535
     - fail_task
 
-- name: Fail if IMS_CONNECT_PORT is valid
+- name: Fail if IMS_CONNECT_PORT is invalid
   fail:
     msg: "IMS Connect port should be between 1 and 65535"
   when:
-    - IMS_CONNECT_PORT <= 0 or IMS_CONNECT_PORT > 65535
+    - IMS_CONNECT_PORT|int <= 0 or IMS_CONNECT_PORT|int > 65535
     - fail_task
 
-- name: Fail if ODBM_SSLPORTID is valid
+- name: Fail if ODBM_SSLPORTID is invalid
   fail:
     msg: "ODBM SSL port should be between 1 and 65535"
   when:
-    - ODBM_SSLPORTID <= 0 or ODBM_SSLPORTID > 65535
+    - ODBM_SSLPORTID|int <= 0 or ODBM_SSLPORTID|int > 65535
     - fail_task
 
-- name: Fail if IMS_CONNECT_SSLPORT is valid
+- name: Fail if IMS_CONNECT_SSLPORT is invalid
   fail:
     msg: "IMS Connct SSL port should be between 1 and 65535"
   when:
-    - IMS_CONNECT_SSLPORT <= 0 or IMS_CONNECT_SSLPORT > 65535
+    - IMS_CONNECT_SSLPORT|int <= 0 or IMS_CONNECT_SSLPORT|int > 65535
     - fail_task
