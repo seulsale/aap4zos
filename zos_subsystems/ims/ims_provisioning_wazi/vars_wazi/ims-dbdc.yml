@@ -7,11 +7,11 @@ DFS_IMS_SSID: "{{ dfs_ims_ssid | default('IMWZ') }}"
 # IMSPlex name
 DFS_IMSPlex: "{{ dfs_ims_plex | default('PLXWZ') }}"
 # ODBM ports
-ODBM_PORTID: "{{ odbm_port | default('9800') }}"
-ODBM_SSLPORTID: "{{ odbm_port_ssl | default('9801') }}"
+ODBM_PORTID: "{{ odbm_port | default('9800') | int }}"
+ODBM_SSLPORTID: "{{ odbm_port_ssl | default('9801') | int }}"
 # IMS Connect ports
-IMS_CONNECT_PORT: "{{ ims_connect_port | default('9900') }}"
-IMS_CONNECT_SSLPORT: "{{ ims_connect_ssl_port | default('9901') }}"
+IMS_CONNECT_PORT: "{{ ims_connect_port | default('9900') | int }}"
+IMS_CONNECT_SSLPORT: "{{ ims_connect_ssl_port | default('9901') | int }}"
 # ---------------------------------------------------------------------------- #
 #                               TCPIP information                              #
 # ---------------------------------------------------------------------------- #
