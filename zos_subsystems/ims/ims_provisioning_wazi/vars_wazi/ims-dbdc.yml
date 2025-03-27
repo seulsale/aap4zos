@@ -1,18 +1,17 @@
 ---
-
 # ---------------------------------------------------------------------------- #
 #                               Commonly changed variables                     #
 # ---------------------------------------------------------------------------- #
 # The SSID for the IMS to be provisioned
-DFS_IMS_SSID: IMWZ
+DFS_IMS_SSID: "{{ dfs_ims_ssid | default('IMWZ') }}"
 # IMSPlex name
-DFS_IMSPlex: PLXWZ
+DFS_IMSPlex: "{{ dfs_ims_plex | default('PLXWZ') }}"
 # ODBM ports
-ODBM_PORTID: 9800
-ODBM_SSLPORTID: 9801
+ODBM_PORTID: "{{ odbm_port | default('9800') }}"
+ODBM_SSLPORTID: "{{ odbm_port_ssl | default('9801') }}"
 # IMS Connect ports
-IMS_CONNECT_PORT: 9900
-IMS_CONNECT_SSLPORT: 9901
+IMS_CONNECT_PORT: "{{ ims_connect_port | default('9900') }}"
+IMS_CONNECT_SSLPORT: "{{ ims_connect_ssl_port | default('9901') }}"
 # ---------------------------------------------------------------------------- #
 #                               TCPIP information                              #
 # ---------------------------------------------------------------------------- #
@@ -26,7 +25,7 @@ DYNAMICALLY_RESERVE_PORTS: no
 # port within the default range of the Ansible zport module
 RESERVE_SPECIFIC_PORT: yes
 
-ZOS_RELEASE: ''
+ZOS_RELEASE: "{{ zos_version | default('Z31B') }}"
 # location of system tcpip profile
 # TCPIP_PROFILE:  SYS1.TCPPARMS(PROFILE)
 TCPIP_PROFILE:  ADCD.{{ZOS_RELEASE}}.TCPPARMS(PROFILE)
@@ -38,7 +37,7 @@ TCPIP_PROFILE_TLS:  ADCD.{{ZOS_RELEASE}}.TCPPARMS(TLSPOLY1)
 # or dataset member to store the profile changes
 TCPIP_PROFILE_TMP_MEMBER: IMSPROF
 # ---------------------------------------------------------------------------- #
-STEPLIB: DFSF10.SDFSRESL
+STEPLIB: "{{ ims_steplib | default('DFSF10.SDFSRESL') }}"
 
 # The API key to use for artifactory repositories
 api_key: ''
@@ -63,7 +62,7 @@ DFS_AUTH_LIB_HLQ2: '{{ DFS_IMS_SSID }}'
 # The first HLQ for system datasets that will be used
 # by IMS during provisioning. These should exist prior to
 # running playbooks
-DFS_AUTH_LIB_SYSHLQ1: DFSF10
+DFS_AUTH_LIB_SYSHLQ1: "{{ dfs_auth_lib_hlq | default('DFSF10') }}"
 # The second HLQ for system datasets that will be used
 # by IMS during provisioning. These should exist prior to
 # running playbooks
